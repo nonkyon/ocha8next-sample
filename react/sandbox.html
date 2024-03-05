@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sandbox</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+  <div id="root"></div>
+    <script type="text/babel">
+
+      const user = {
+        name: 'OCHaCafe',
+        imageUrl: 'img/ocha-nextjs.png',
+      }
+
+      const ochacafe8Sessions = [
+        {title: '速習 Go', id: 1},
+        {title: '基礎から学ぶ Next.js', id: 2},
+        {title: 'シン・Kafka', id: 3},
+        {title: 'NewSQL のランドスケープ', id: 4},
+        {title: 'Kubernetes で作る IaaS 基盤', id: 5},
+        {title: 'LLMのエコシステム', id: 6},
+      ]
+      
+      const { useState } = React //ブラウザでサクッと試すとき
+      //import { useState } from 'react'; //プロダクション環境などはこっち
+
+      function MyButton() {
+        const [count, setCount] = useState(0);
+
+        function handleClick() {
+          setCount(count + 1);
+        }
+
+        return (
+          <button onClick={handleClick}>
+            Clicked {count} times
+          </button>
+        );
+      }
+
+      function MyApp() {
+
+        const listItems = ochacafe8Sessions.map(session =>
+          <li
+            key={session.id}
+            style={{
+              color: session.id === 2 ? 'darkred' : 'darkblue'
+            }}
+          >
+            {session.title}
+          </li>
+        );
+
+        return (
+          <div>
+            <h1>Hello {user.name}</h1>
+            <img
+              src={user.imageUrl}
+            />
+            <ul>{listItems}</ul>
+            <MyButton />
+            <MyButton />
+          </div>
+        );
+      }
+
+      const container = document.getElementById('root');
+      const root = ReactDOM.createRoot(container);
+      root.render(<MyApp />);
+
+    </script>
+  </body>
+</html>
+
+
